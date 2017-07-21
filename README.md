@@ -11,19 +11,20 @@
 
 # 更新说明：
 
+* 20170721, 区分显示物理内存和真实内存 by 呉真
 * 20170108, 更新支持所有系统
 * 20161205, 去掉无用的IPV6信息，增加服务器总流量监控              
 * 20161203, 汉化并简化安装教程              
 
 # 安装教程：     
-   
+
 【克隆代码】:
 ```
-git clone https://github.com/tenyue/ServerStatus.git
+git clone https://github.com/kuretru/ServerStatus.git
 ```
 
 【服务端配置】（服务端程序在ServerStatus/web下）:  
-          
+
 一、生成服务端程序              
 ```
 cd ServerStatus/server
@@ -33,7 +34,7 @@ make
 如果没错误提示，OK，ctrl+c关闭；如果有错误提示，检查35601端口是否被占用    
 
 二、修改配置文件         
-修改config.json文件，注意username, password的值需要和客户端对应一致                 
+修改config.json文件，注意username, password的值需要和客户端对应一致                
 ```
 {"servers":
 	[
@@ -100,9 +101,9 @@ pip install psutil
 * 不符合中文版的习惯
 * 没有一次又一次的轮子，哪来如此优秀的云探针
 
-# 相关开源项目，感谢： 
+# 相关开源项目，感谢：
 
 * ServerStatus：https://github.com/BotoX/ServerStatus
-* mojeda: https://github.com/mojeda 
+* mojeda: https://github.com/mojeda
 * mojeda's ServerStatus: https://github.com/mojeda/ServerStatus
 * BlueVM's project: http://www.lowendtalk.com/discussion/comment/169690#Comment_169690
