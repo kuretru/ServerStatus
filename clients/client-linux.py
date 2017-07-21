@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # Update by : https://github.com/tenyue/ServerStatus
 # 支持Python版本：2.6 to 3.5
@@ -42,10 +43,10 @@ def get_memory():
 	MemTotal = float(result['MemTotal'])
 	MemFree = float(result['MemFree'])
 	Cached = float(result['Cached'])
-	MemUsed = MemTotal - (Cached + MemFree)
+	MemUsed = MemTotal - (Cached + MemFree + Buffers)
 	SwapTotal = float(result['SwapTotal'])
 	SwapFree = float(result['SwapFree'])
-	RealUsed = MemUsed - Buffers - Cached
+	RealUsed = MemTotal - MemFree
 	return int(MemTotal), int(MemUsed), int(RealUsed), int(SwapTotal), int(SwapFree)
 
 def get_hdd():
