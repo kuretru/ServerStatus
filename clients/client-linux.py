@@ -45,7 +45,8 @@ def get_memory():
 	MemUsed = MemTotal - (Cached + MemFree)
 	SwapTotal = float(result['SwapTotal'])
 	SwapFree = float(result['SwapFree'])
-	return int(MemTotal), int(MemUsed), int(SwapTotal), int(SwapFree)
+	RealUsed = MemUsed - Buffers - Cached
+	return int(MemTotal), int(MemUsed), int(RealUsed), int(SwapTotal), int(SwapFree)
 
 def get_hdd():
 	p = subprocess.check_output(['df', '-Tlm', '--total', '-t', 'ext4', '-t', 'ext3', '-t', 'ext2', '-t', 'reiserfs', '-t', 'jfs', '-t', 'ntfs', '-t', 'fat32', '-t', 'btrfs', '-t', 'fuseblk', '-t', 'zfs', '-t', 'simfs', '-t', 'xfs']).decode("Utf-8")
@@ -177,7 +178,7 @@ if __name__ == '__main__':
 				NET_IN, NET_OUT = liuliang()
 				Uptime = get_uptime()
 				Load = get_load()
-				MemoryTotal, MemoryUsed, SwapTotal, SwapFree = get_memory()
+				MemoryTotal, MemoryUsed, RealUsed, SwapTotal, SwapFree = get_memory()
 				HDDTotal, HDDUsed = get_hdd()
 
 				array = {}
@@ -191,6 +192,7 @@ if __name__ == '__main__':
 				array['load'] = Load
 				array['memory_total'] = MemoryTotal
 				array['memory_used'] = MemoryUsed
+				array['real_used'] = RealUsed
 				array['swap_total'] = SwapTotal
 				array['swap_used'] = SwapTotal - SwapFree
 				array['hdd_total'] = HDDTotal

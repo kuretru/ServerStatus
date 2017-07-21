@@ -146,6 +146,8 @@ int CMain::HandleMessage(int ClientNetID, char *pMessage)
 			pClient->m_Stats.m_MemTotal = rStart["memory_total"].u.integer;
 		if(rStart["memory_used"].type)
 			pClient->m_Stats.m_MemUsed = rStart["memory_used"].u.integer;
+		if(rStart["real_used"].type)
+			pClient->m_Stats.m_MemUsed = rStart["real_used"].u.integer;
 		if(rStart["swap_total"].type)
 			pClient->m_Stats.m_SwapTotal = rStart["swap_total"].u.integer;
 		if(rStart["swap_used"].type)
