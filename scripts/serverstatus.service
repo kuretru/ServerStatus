@@ -1,0 +1,12 @@
+[Unit]
+Description=ServerStatus Client
+After=network.target
+
+[Service]
+Type=simple
+IgnoreSIGPIPE=no
+User=nginx
+ExecStart=/usr/local/share/serverstatus-client.py
+
+[Install]
+WantedBy=multi-user.target

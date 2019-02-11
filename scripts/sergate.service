@@ -1,0 +1,18 @@
+[Unit]
+Description=ServerStatus Master Server
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/src/ServerStatus/server
+User=nginx
+Group=nginx
+ExecStart=/usr/local/src/ServerStatus/server/sergate -d /home/nginx/monitor.kuretru.com/public/status -p 8099
+ExecReload=/bin/kill -HUP $MAINPID
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=sergate
+
+[Install]
+WantedBy=multi-user.target
