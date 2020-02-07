@@ -1,8 +1,8 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Update by : https://github.com/tenyue/ServerStatus
-# 支持Python版本：2.6 to 3.5
-# 支持操作系统： Linux, OSX, FreeBSD, OpenBSD and NetBSD, both 32-bit and 64-bit architectures
+# Update by : https://github.com/kuretru/ServerStatus
+# 支持Python版本：2.7 to 3.6
+# 支持操作系统： CentOS 6/7/8, Debian 9/10, OpenWrt 18.06/19.07
 
 
 SERVER = "127.0.0.1"
@@ -68,7 +68,7 @@ def get_load():
 
 
 def get_time():
-    stat_file = file("/proc/stat", "r")
+    stat_file = open("/proc/stat", "r")
     time_list = stat_file.readline().split(' ')[2:6]
     stat_file.close()
     for i in range(len(time_list)):
@@ -167,10 +167,10 @@ if __name__ == '__main__':
             print("Connecting...")
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((SERVER, PORT))
-            data = s.recv(1024)
+            data = s.recv(1024).decode()
             if data.find("Authentication required") > -1:
-                s.send(USER + ':' + PASSWORD + '\n')
-                data = s.recv(1024)
+                s.send((USER + ':' + PASSWORD + '\n').encode())
+                data = s.recv(1024).decode()
                 if data.find("Authentication successful") < 0:
                     print(data)
                     raise socket.error
@@ -179,7 +179,7 @@ if __name__ == '__main__':
                 raise socket.error
 
             print(data)
-            data = s.recv(1024)
+            data = s.recv(1024).decode()
             print(data)
 
             timer = 0
@@ -225,7 +225,7 @@ if __name__ == '__main__':
                 array['network_in'] = NET_IN
                 array['network_out'] = NET_OUT
 
-                s.send("update " + json.dumps(array) + "\n")
+                s.send(("update " + json.dumps(array) + "\n").encode())
         except KeyboardInterrupt:
             raise
         except socket.error:
